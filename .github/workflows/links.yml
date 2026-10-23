@@ -1,0 +1,42 @@
+# Checks every link and asset path in the site. Runs on each push, and weekly
+# so links that rot on their own (a project moves, an account is renamed)
+# show up as a failed run -- GitHub emails the repo owner when a scheduled
+# run fails.
+name: Link check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 9 * * 1'              # Mondays, 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          fail: true
+          # Excluded:
+          # - discord.com, vrchat.com: block or challenge bots, so they fail
+          #   in CI even when the profile is fine.
+          # - fonts.googleapis.com / fonts.gstatic.com bare origins: only
+          #   used as <link rel="preconnect"> targets; the roots 404 by design.
+          #   The actual stylesheet URL is still checked.
+          # - assets/share.jpg: the og:image placeholder, not added yet.
+          #   Remove this exclusion once the image exists.
+          args: >-
+            --no-progress
+            --include-fragments
+            --max-retries 3
+            --exclude '^https://discord\.com/'
+            --exclude '^https://vrchat\.com/'
+            --exclude '^https://fonts\.(googleapis|gstatic)\.com/?$'
+            --exclude 'share\.jpg$'
+            index.html
