@@ -1,0 +1,354 @@
+/* Ported from the original Carrd build; values and breakpoints match it. */
+
+:root {
+	--bg: #35393E;
+	--text: #FFFFFF;
+	--muted: #808080;
+	--button-hover: #636B75;
+	--font: 'Lexend', sans-serif;
+
+	--page-padding-horizontal: 4.875rem;
+	--padding-vertical: 1rem;
+	--padding-horizontal: 1.5rem;
+	--spacing: 1.25rem;
+	--gutters: 2rem;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+html, body, div, span, h1, p, ul, li, a, img, hr, main, section, nav {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+ul {
+	list-style: none;
+}
+
+html {
+	font-size: 18pt;
+	-webkit-text-size-adjust: none;
+}
+
+body {
+	background-color: var(--bg);
+	line-height: 1;
+	min-height: 100vh;
+	min-width: 320px;
+	overflow-x: hidden;
+	word-wrap: break-word;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* Layout */
+
+.site-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100vh;
+	overflow: hidden;
+}
+
+.site-main {
+	padding: var(--padding-vertical) var(--page-padding-horizontal);
+	text-align: center;
+}
+
+.container > .inner {
+	padding: var(--padding-vertical) var(--padding-horizontal);
+}
+
+.container > .inner > * {
+	margin-top: var(--spacing);
+	margin-bottom: var(--spacing);
+}
+
+.container > .inner > :first-child {
+	margin-top: 0;
+}
+
+.container > .inner > :last-child {
+	margin-bottom: 0;
+}
+
+/* The socials row has no vertical padding, inherits the page's horizontal padding,
+   and (unlike the other rows) keeps a top margin. */
+.socials {
+	margin-top: var(--spacing);
+}
+
+.socials > .inner {
+	padding: 0 var(--page-padding-horizontal);
+}
+
+/* Hero: name | spacer | avatar columns */
+
+.hero > .inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.hero > .inner > * {
+	flex-grow: 0;
+	flex-shrink: 0;
+	max-width: 100%;
+	margin: 0;
+	padding: 0 0 0 var(--gutters);
+}
+
+.hero > .inner > :first-child {
+	margin-left: calc(var(--gutters) * -1);
+}
+
+.hero > .inner > :nth-child(1) {
+	width: calc(30% + (var(--gutters) / 3));
+}
+
+.hero > .inner > :nth-child(2) {
+	width: calc(50% + (var(--gutters) / 3));
+}
+
+.hero > .inner > :nth-child(3) {
+	width: calc(20% + (var(--gutters) / 3));
+}
+
+.name, .pronouns {
+	font-family: var(--font);
+	font-weight: 500;
+	line-height: 1.125;
+}
+
+.name {
+	color: var(--text);
+	font-size: 2.75em;
+}
+
+.pronouns {
+	color: var(--muted);
+	font-size: 1.125em;
+}
+
+/* Images */
+
+.avatar, .footer-image {
+	display: block;
+	line-height: 0;
+	max-width: 100%;
+}
+
+.frame {
+	display: inline-block;
+	max-width: 100%;
+	overflow: hidden;
+	vertical-align: top;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translate3d(0, 0, 0);
+}
+
+.frame > img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: top;
+	width: 100%;
+}
+
+.avatar > .frame {
+	width: 6rem;
+	border-radius: 100%;
+	transition: transform 0.125s ease;
+}
+
+.avatar > .frame:hover {
+	transform: rotate(-3.875deg);
+}
+
+.footer-image {
+	margin-top: 0 !important;
+}
+
+.footer-image > .frame {
+	width: 3rem;
+	border-radius: 1rem;
+}
+
+/* Dividers */
+
+.divider {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 1rem;
+	width: 100%;
+}
+
+.divider::before {
+	content: '';
+	width: 100%;
+	height: 1px;
+	background-color: var(--muted);
+}
+
+.divider.dashed::before {
+	background-color: transparent;
+	border-top: dashed 1px var(--muted);
+}
+
+/* Buttons */
+
+.buttons {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1rem;
+	cursor: default;
+}
+
+.buttons > li {
+	max-width: 100%;
+	text-align: center;
+}
+
+.buttons > li > a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 100%;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	padding: 0 1.25rem;
+	vertical-align: middle;
+	white-space: nowrap;
+	font-family: var(--font);
+	font-size: 1.5em;
+	font-weight: 400;
+	border-radius: 3rem;
+	background-color: var(--bg);
+	color: var(--text);
+	transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.buttons > li > a:hover {
+	background-color: var(--button-hover);
+}
+
+.buttons > li > a > svg {
+	display: block;
+	flex: 0 0 auto;
+	fill: var(--text);
+	height: 100%;
+	min-width: 16px;
+	width: 1.5em;
+	margin-left: -0.125em;
+	margin-right: 0.5rem;
+	pointer-events: none;
+}
+
+.buttons > li > a > .label {
+	overflow: hidden;
+}
+
+/* Breakpoints */
+
+@media (max-width: 1680px) {
+	html {
+		font-size: 13pt;
+	}
+}
+
+@media (max-width: 980px) {
+	html {
+		font-size: 11pt;
+	}
+}
+
+@media (max-width: 736px) {
+	:root {
+		--page-padding-horizontal: 2rem;
+	}
+
+	.hero > .inner {
+		flex-direction: column;
+		flex-wrap: nowrap;
+	}
+
+	.hero > .inner > * {
+		width: 100% !important;
+		padding: calc(var(--gutters) * 0.5) 0;
+	}
+
+	.hero > .inner > :first-child {
+		margin-left: 0;
+		padding-top: 0;
+	}
+
+	.hero > .inner > :last-child {
+		padding-bottom: 0;
+	}
+
+	.hero > .inner > span {
+		height: 0;
+		margin-top: calc(var(--gutters) * -1);
+		visibility: hidden;
+	}
+
+	.name, .pronouns {
+		width: 100%;
+		font-size: 3.25em;
+	}
+
+	.buttons > li > a {
+		font-size: 1.25em;
+	}
+
+	.buttons > li > a > svg {
+		width: 2em;
+	}
+}
+
+@media (max-width: 480px) {
+	:root {
+		--spacing: 1.09375rem;
+	}
+
+	.buttons {
+		flex-direction: column;
+		flex-wrap: nowrap;
+	}
+
+	.buttons > li > a {
+		max-width: 32rem;
+		width: 100%;
+	}
+}
+
+@media (max-width: 360px) {
+	:root {
+		--page-padding-horizontal: 1.5rem;
+		--padding-vertical: 0.75rem;
+		--padding-horizontal: 1.125rem;
+		--spacing: 0.9375rem;
+		--gutters: 1.5rem;
+	}
+
+	.buttons {
+		gap: 0.75rem;
+	}
+}
+
+@media (prefers-reduced-motion) {
+	*, *::before, *::after {
+		transform: none !important;
+	}
+}
